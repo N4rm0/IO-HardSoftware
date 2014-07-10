@@ -155,7 +155,10 @@ int thirdBits(void) {
  *   Rating: 2
  */
 int fitsBits(int x, int n) {
-  return 2;
+  int nbits = (1 << (n-1)) >> (n-1);
+  int resultat = x & ~nbits;
+  int test_1_byte = (x >> 31) & 1
+  return !resultat;
 }
 /* 
  * sign - return 1 if positive, 0 if zero, and -1 if negative
