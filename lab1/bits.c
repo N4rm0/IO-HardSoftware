@@ -155,16 +155,25 @@ int thirdBits(void) {
  *   Rating: 2
  */
 int fitsBits(int x, int n) {
-  // build a mask to discard the 1st bit(sign bit) and consider only the last n-1 bits
-  // if the number fits, the result of the number and the mask should be 0
-  // build a mask with only 1
-  int all_one = (1 << 31) >> 31;
-  int mask = all_one;
-  int noFit;
-  mask = (mask << n) >> 1;
-  // discard the 1st bit
-  noFit = (mask & x) << 1;
-  return !noFit; 
+
+  // the idea is to see if the n-1 bits are enough to fill the number.
+  // if the number x is negative, we take its complementary to get a positive number
+  int is_negative;
+  int mask;
+  int minus_one = ((1 << 31) >> 31);
+  int result;
+  // test if number is positive or negative
+  is_negative = x >> 31; // either 0x00...00 or 0xff..ff
+
+  // consider only the last n-1 bits
+  // take advantage minus one is the 0xff mask
+  mask = minus_one << (n+minus_one);
+  // perform if operation (x<0)? ~x& mask : x&mask
+  result = (is_negative & (mask & ~x)) + ((~is_negative) & (mask & x));
+
+  //printf("x=%d n=%d (negative %d) mask=%x result=%d\n",x,n,is_negative,mask,!result);
+  // result == 0 ?  ok: ko
+  return !result;
 }
 /* 
  * sign - return 1 if positive, 0 if zero, and -1 if negative
