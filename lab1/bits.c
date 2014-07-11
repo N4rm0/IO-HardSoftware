@@ -155,10 +155,16 @@ int thirdBits(void) {
  *   Rating: 2
  */
 int fitsBits(int x, int n) {
-  int nbits = (1 << (n-1)) >> (n-1);
-  int resultat = x & ~nbits;
-  int test_1_byte = (x >> 31) & 1
-  return !resultat;
+  // build a mask to discard the 1st bit(sign bit) and consider only the last n-1 bits
+  // if the number fits, the result of the number and the mask should be 0
+  // build a mask with only 1
+  int all_one = (1 << 31) >> 31;
+  int mask = all_one;
+  int noFit;
+  mask = (mask << n) >> 1;
+  // discard the 1st bit
+  noFit = (mask & x) << 1;
+  return !noFit; 
 }
 /* 
  * sign - return 1 if positive, 0 if zero, and -1 if negative
