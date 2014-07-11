@@ -238,7 +238,19 @@ int logicalShift(int x, int n) {
  *   Rating: 3
  */
 int addOK(int x, int y) {
-  return 2;
+  // interesting case is when both x and y are negative or positive, other case is irrelevant
+  int compute_x_y = x + y;
+  int sign_x = x >> 31;
+  int sign_y = y >> 31;
+  int not_same_sign = sign_x ^ sign_y;
+  // test sign has changed (test 1st bit) with XOR
+  // change => 0xFF..FF
+  // no change => 0x00..00
+  int not_change = (compute_x_y ^ sign_x ) >> 31;
+
+  //printf("x=%d[%x] y=%d[%x] sign_x=%x sign_y=%x not_same_sign=%x not_change=%x\n",x,x,y,y,sign_x,sign_y,not_same_sign,not_change);
+  
+  return (not_same_sign & 1) + (~not_same_sign & ((not_change & 0) + (~not_change & 1) ));
 }
 // Rating: 4
 /* 
