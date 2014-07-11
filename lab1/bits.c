@@ -190,16 +190,20 @@ int sign(int x) {
   return (is_not_zero & ((~is_positive) + (is_positive & 1)));
 }
 /* 
- * getByte - Extract byte n from word x
- *   Bytes numbered from 0 (LSB) to 3 (MSB)
+ * getbyte - extract byte n from word x
+ *   bytes numbered from 0 (lsb) to 3 (MSB)
  *   Examples: getByte(0x12345678,1) = 0x56
  *   Legal ops: ! ~ & ^ | + << >>
  *   Max ops: 6
  *   Rating: 2
  */
 int getByte(int x, int n) {
-  return 2;
+  // just shift bits to get the mask
+  int byte_mask = 0xFF;
+  // perform 8*n, since 8=2^3 use bitshift to compute powers of 2
+  return byte_mask & (x >> (n << 3));
 }
+
 // Rating: 3
 /* 
  * logicalShift - shift x to the right by n, using a logical shift
