@@ -209,12 +209,25 @@ int getByte(int x, int n) {
  * logicalShift - shift x to the right by n, using a logical shift
  *   Can assume that 0 <= n <= 31
  *   Examples: logicalShift(0x87654321,4) = 0x08765432
- *   Legal ops: ~ & ^ | + << >>
+ *   Legal ops: ! ~ & ^ | + << >>
  *   Max ops: 20
  *   Rating: 3 
  */
 int logicalShift(int x, int n) {
-  return 2;
+  // n=0 is a o_O case
+  // case x > 0 => easy case, logicShift is done by >>
+  // case x < 0 => 
+  //            case n > 0 do shift and use mask 0x00..FF to discard n bits
+  //            case n = 0 do shift of 0 and use mask 0xFF..FF to keep all bits
+  
+  int minus_one = ~0;
+  int zero_or_minus_one = (x >> 31); // either 0x00..00 or 0xff..ff
+  // somehow I am lost in this mess!!
+  int is_n_zero = ((!n) << 31) >> 31; // if n=0  0xFF..FF else 0x00
+  int mask =  is_n_zero + ((~is_n_zero) & (~((1 << 31) >> (n + minus_one))));
+  int positive_case = (zero_or_minus_one ^ minus_one) & (x >> n);
+  int negative_case = (zero_or_minus_one ^ 0) & ((x >> n) & mask);
+  return positive_case + negative_case;
 }
 /* 
  * addOK - Determine if can compute x+y without overflow
