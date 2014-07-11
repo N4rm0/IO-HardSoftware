@@ -184,7 +184,10 @@ int fitsBits(int x, int n) {
  *  Rating: 2
  */
 int sign(int x) {
-  return 2;
+  // taken from previous exercice
+  int is_positive = ((~x) >> 31) ; // either 0x00..00 or 0xff..ff
+  int is_not_zero = ((!!x) << 31)>>31 ;
+  return (is_not_zero & ((~is_positive) + (is_positive & 1)));
 }
 /* 
  * getByte - Extract byte n from word x
