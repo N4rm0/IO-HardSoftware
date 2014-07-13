@@ -261,8 +261,9 @@ int addOK(int x, int y) {
  *   Rating: 4 
  */
 int bang(int x) {
-  int sum = x + x;
-  return sum;
+  int invx = ~x;                  //if x==0, then -1
+  int negx = invx + 1;                //if x==0, then 0
+  return ((~negx & invx)>>31) & 1; 
 }
 // Extra Credit: Rating: 3
 /* 
@@ -287,5 +288,14 @@ int conditional(int x, int y, int z) {
  *   Rating: 4
  */
 int isPower2(int x) {
-  return 2;
+  // check that only 1 bit is set to 1
+  // x & x-1 does the trick
+  // check also x is not negative or null
+  int x_negative = x >> 31; // 0x00 if positive, 0xFF..FF otherwise
+  int x_null = ((!x) << 31) >> 31;  // 0xFF..FF if null
+  int negative_or_null = x_null | x_negative;
+  int minus_1 = ~0;
+  int divide_by_two = !(x & (x + minus_1)); // 0 if divisable by 2
+  //  printf("x_negative=%x x_null=%x negative_or_null=%x divide_by_two=%x\n",x_negative,x_null,negative_or_null,divide_by_two);
+  return (negative_or_null & 0) + (~negative_or_null & divide_by_two);
 }
