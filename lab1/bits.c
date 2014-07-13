@@ -111,6 +111,9 @@ NOTES:
 
 
 #endif
+// declaration to avoid annoying warning
+int printf(const char *, ...);
+
 // Rating: 1
 /* 
  * bitAnd - x&y using only ~ and | 
