@@ -261,7 +261,8 @@ int addOK(int x, int y) {
  *   Rating: 4 
  */
 int bang(int x) {
-  return 2;
+  int sum = x + x;
+  return sum;
 }
 // Extra Credit: Rating: 3
 /* 
@@ -272,7 +273,9 @@ int bang(int x) {
  *   Rating: 3
  */
 int conditional(int x, int y, int z) {
-  return 2;
+  // transform x to 0x00 or 0xFF..FF
+  int boolean_x = ((!!x) <<31) >>31;
+  return (boolean_x & y) + (~boolean_x & z);
 }
 // Extra Credit: Rating: 4
 /*
