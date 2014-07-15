@@ -135,11 +135,12 @@ int changeValue() {
  * Operators / and % and loops are NOT allowed.
  */
 int withinSameBlock(int * ptr1, int * ptr2) {
-  // TODO
-  //double result = (double)ptr1 - (double)ptr2 < 64? 1 : ((double)ptr2 - (double)ptr1 < 64? 1:0);
-  printf("pointers %p %p\n", ptr1 , ptr2);
-  printf("difference %p\n",(ptr1 - ptr2));
-  return 1;
+  // divide by 64 is same as bitshift >> 6
+  unsigned long address1 = (unsigned long)ptr1 >> 6;
+  unsigned long address2 = (unsigned long)ptr2 >> 6;
+  int result =  (address1 == address2)? 1 :0;
+  //printf("%d\n",result);
+  return result;
 }
 
 /*
