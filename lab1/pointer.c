@@ -148,8 +148,11 @@ int withinSameBlock(int * ptr1, int * ptr2) {
  * 0 otherwise.
  */
 int withinArray(int * intArray, int size, int * ptr) {
-  // TODO
-  return 2;
+  int * arrayEnd = intArray + size;
+  unsigned long address1 = (unsigned long ) intArray;
+  unsigned long address2 = (unsigned long ) ptr;
+  unsigned long address3 = (unsigned long ) arrayEnd;
+  return (address1 <= address2 && address3 > address2 )? 1:0;
 }
 /*
  * Return x with the n bits that begin at position p inverted (i.e.,
