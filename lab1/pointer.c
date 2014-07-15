@@ -85,8 +85,7 @@ int intSize() {
   int * intPtr1;
   int * intPtr2;
   // TODO: Write code to compute size of an integer.
-
-  return 2;
+  return sizeof(int);
 }
 
 /*
@@ -98,7 +97,7 @@ int doubleSize() {
   double * doubPtr2;
   // TODO: Write code to compute size of a double.
 
-  return 2;
+  return sizeof(double);
 }
 
 /*
@@ -110,7 +109,7 @@ int pointerSize() {
   double ** ptrPtr2;
   // TODO: Write code to compute size of a pointer.
 
-  return 2;
+  return sizeof(ptrPtr1);
 }
 
 /*
@@ -123,7 +122,8 @@ int changeValue() {
   int * intPtr2;
   // TODO: Write code to change value of intArray[5] to 351 using only
   //       intPtr1 and the + operator.
-
+  intPtr2 = intPtr1 + 5 ;
+  * intPtr2 = 351;
   return intArray[5];
 }
 
@@ -136,7 +136,10 @@ int changeValue() {
  */
 int withinSameBlock(int * ptr1, int * ptr2) {
   // TODO
-  return 2;
+  //double result = (double)ptr1 - (double)ptr2 < 64? 1 : ((double)ptr2 - (double)ptr1 < 64? 1:0);
+  printf("pointers %p %p\n", ptr1 , ptr2);
+  printf("difference %p\n",(ptr1 - ptr2));
+  return 1;
 }
 
 /*

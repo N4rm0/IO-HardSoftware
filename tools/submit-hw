@@ -18,8 +18,8 @@ session_name = 'hwswinterface-002'
 
 # You may specify your credentials here so you
 # don't have to enter them over and over.
-login_name = None
-password = None
+login_name = 'monard.vong@yahoo.fr'
+password = 'rDxKyGw7xW'
 
 config_filename = '.config'
 
