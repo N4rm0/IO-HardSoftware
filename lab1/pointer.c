@@ -160,6 +160,12 @@ int withinArray(int * intArray, int size, int * ptr) {
  * the indices of x to begin with the low-order bit numbered as 0.
  */
 int invert(int x, int p, int n) {
-  // TODO
-  return 2;
+  int mask = -1; // 0xFF..FF
+  int mask_right = mask << (p); // 0b11..100..
+  int mask_left = mask << (n + p); // 0b11..100000
+  mask = mask_left ^ mask_right; // only relevant part is taken
+  int x_except_mask = x & ~mask;
+  int bitshift = ~x & mask;
+  //  printf("mask=%d x=%d mask_left=%d mask_right=%d\n",mask,x,mask_left,mask_right);
+  return x_except_mask + bitshift;
 }
